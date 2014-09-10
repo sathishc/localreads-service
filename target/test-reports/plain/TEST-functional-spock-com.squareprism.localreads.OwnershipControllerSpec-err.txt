@@ -1,0 +1,9 @@
+--Output from create Ownerships from a Book Volume--
+--Output from add Ownerships to this user--
+--Output from get the added Ownership belonging to this user--
+--Output from list Ownerships belonging to this user--
+--Output from search for Books with a query --
+--Output from search for Books with another query --
+--Output from search for a Book that wont match a query --
+--Output from delete Ownerships belonging to this user--
+--Output from list Ownerships belonging to this user after deletion of 1 ownership--

@@ -1,0 +1,10 @@
+--Output from create Ownerships from a Book Volume--
+[bookId:54102dc703645f7742eec103, id:54102dc703645f7742eec104, message:Created ownership, status:true]
+--Output from add Ownerships to this user--
+--Output from get the added Ownership belonging to this user--
+--Output from list Ownerships belonging to this user--
+--Output from search for Books with a query --
+--Output from search for Books with another query --
+--Output from search for a Book that wont match a query --
+--Output from delete Ownerships belonging to this user--
+--Output from list Ownerships belonging to this user after deletion of 1 ownership--

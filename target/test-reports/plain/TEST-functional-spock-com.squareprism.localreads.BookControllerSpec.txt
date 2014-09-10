@@ -1,0 +1,14 @@
+Testsuite: com.squareprism.localreads.BookControllerSpec
+Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.692 sec
+------------- Standard Output ---------------
+--Output from Add a book--
+--Output from Retrieve all books--
+Successfully saved user
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from Add a book--
+--Output from Retrieve all books--
+------------- ---------------- ---------------
+
+Testcase: Add a book took 0.245 sec
+Testcase: Retrieve all books took 0.139 sec
