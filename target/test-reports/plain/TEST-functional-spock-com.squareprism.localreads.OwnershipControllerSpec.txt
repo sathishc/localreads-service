@@ -1,11 +1,13 @@
 Testsuite: com.squareprism.localreads.OwnershipControllerSpec
-Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.432 sec
+Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 1.823 sec
 ------------- Standard Output ---------------
---Output from create Ownerships from a Book Volume--
-[bookId:54102dc703645f7742eec103, id:54102dc703645f7742eec104, message:Created ownership, status:true]
+--Output from create Ownerships from a Book Volume User One--
+--Output from create Ownerships from a Book Volume User Two--
+--Output from create many Ownerships from Book Volumes User One--
+--Output from create many Ownerships from Book Volumes User Two--
 --Output from add Ownerships to this user--
 --Output from get the added Ownership belonging to this user--
---Output from list Ownerships belonging to this user--
+--Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
 --Output from search for a Book that wont match a query --
@@ -13,10 +15,13 @@ Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.432 sec
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--
 ------------- ---------------- ---------------
 ------------- Standard Error -----------------
---Output from create Ownerships from a Book Volume--
+--Output from create Ownerships from a Book Volume User One--
+--Output from create Ownerships from a Book Volume User Two--
+--Output from create many Ownerships from Book Volumes User One--
+--Output from create many Ownerships from Book Volumes User Two--
 --Output from add Ownerships to this user--
 --Output from get the added Ownership belonging to this user--
---Output from list Ownerships belonging to this user--
+--Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
 --Output from search for a Book that wont match a query --
@@ -24,12 +29,15 @@ Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.432 sec
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--
 ------------- ---------------- ---------------
 
-Testcase: create Ownerships from a Book Volume took 1.064 sec
-Testcase: add Ownerships to this user took 0.141 sec
-Testcase: get the added Ownership belonging to this user took 0.167 sec
-Testcase: list Ownerships belonging to this user took 0.127 sec
-Testcase: search for Books with a query  took 0.173 sec
-Testcase: search for Books with another query  took 0.13 sec
-Testcase: search for a Book that wont match a query  took 0.121 sec
-Testcase: delete Ownerships belonging to this user took 0.131 sec
-Testcase: list Ownerships belonging to this user after deletion of 1 ownership took 0.122 sec
+Testcase: create Ownerships from a Book Volume User One took 0.129 sec
+Testcase: create Ownerships from a Book Volume User Two took 0.107 sec
+Testcase: create many Ownerships from Book Volumes User One took 0.222 sec
+Testcase: create many Ownerships from Book Volumes User Two took 0.232 sec
+Testcase: add Ownerships to this user took 0.109 sec
+Testcase: get the added Ownership belonging to this user took 0.111 sec
+Testcase: list Ownerships belonging to user one took 0.112 sec
+Testcase: search for Books with a query  took 0.117 sec
+Testcase: search for Books with another query  took 0.112 sec
+Testcase: search for a Book that wont match a query  took 0.107 sec
+Testcase: delete Ownerships belonging to this user took 0.133 sec
+Testcase: list Ownerships belonging to this user after deletion of 1 ownership took 0.115 sec

@@ -2,6 +2,9 @@ package com.squareprism.localreads
 import groovyx.net.http.RESTClient
 import spock.lang.Specification
 
+import static groovyx.net.http.ContentType.URLENC
+
+
 /**
  * Created by SatSang on 9/4/14.
  */
@@ -21,6 +24,7 @@ class UserControllerSpec extends Specification {
         ]
         def response = restClient.post(
                 path:"register/add",
+                requestContentType:URLENC,
                 contentType:"application/json",
                 body:postBody
         )
@@ -32,7 +36,7 @@ class UserControllerSpec extends Specification {
         def response = restClient.delete(
                 path:deleteUrl,
                 contentType:"application/json",
-                headers:['X-Auth-Token':performRestLogin()]
+                headers:['Authorization':performRestLogin()]
         )
 
     }
@@ -59,7 +63,7 @@ class UserControllerSpec extends Specification {
         def response = restClient.get(
                 path:showUrl,
                 contentType:"application/json",
-                headers:['X-Auth-Token':performRestLogin()]
+                headers:['Authorization':performRestLogin()]
         )
         then:
             assert response.status == 200

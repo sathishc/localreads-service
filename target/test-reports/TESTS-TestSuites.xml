@@ -1,48 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="Sathishs-MacBook-Pro.local" id="0" name="BookControllerSpec" package="com.squareprism.localreads" tests="2" time="0.692" timestamp="2014-09-10T10:53:57">
+  <testsuite errors="0" failures="0" hostname="Sathishs-MacBook-Pro.local" id="0" name="OwnershipControllerSpec" package="com.squareprism.localreads" tests="12" time="1.823" timestamp="2014-09-17T10:50:53">
       <properties />
 
-      <testcase classname="com.squareprism.localreads.BookControllerSpec" name="Add a book" time="0.245" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="create Ownerships from a Book Volume User One" time="0.129" />
 
-      <testcase classname="com.squareprism.localreads.BookControllerSpec" name="Retrieve all books" time="0.139" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="create Ownerships from a Book Volume User Two" time="0.107" />
 
-      <system-out><![CDATA[--Output from Add a book--
---Output from Retrieve all books--
-Successfully saved user
-]]></system-out>
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="create many Ownerships from Book Volumes User One" time="0.222" />
 
-      <system-err><![CDATA[--Output from Add a book--
---Output from Retrieve all books--
-]]></system-err>
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="create many Ownerships from Book Volumes User Two" time="0.232" />
 
-  </testsuite>
-  <testsuite errors="0" failures="0" hostname="Sathishs-MacBook-Pro.local" id="1" name="OwnershipControllerSpec" package="com.squareprism.localreads" tests="9" time="2.432" timestamp="2014-09-10T10:53:58">
-      <properties />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="add Ownerships to this user" time="0.109" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="create Ownerships from a Book Volume" time="1.064" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="get the added Ownership belonging to this user" time="0.111" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="add Ownerships to this user" time="0.141" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="list Ownerships belonging to user one" time="0.112" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="get the added Ownership belonging to this user" time="0.167" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="search for Books with a query " time="0.117" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="list Ownerships belonging to this user" time="0.127" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="search for Books with another query " time="0.112" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="search for Books with a query " time="0.173" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="search for a Book that wont match a query " time="0.107" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="search for Books with another query " time="0.13" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="delete Ownerships belonging to this user" time="0.133" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="search for a Book that wont match a query " time="0.12" />
+      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="list Ownerships belonging to this user after deletion of 1 ownership" time="0.115" />
 
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="delete Ownerships belonging to this user" time="0.131" />
-
-      <testcase classname="com.squareprism.localreads.OwnershipControllerSpec" name="list Ownerships belonging to this user after deletion of 1 ownership" time="0.122" />
-
-      <system-out><![CDATA[--Output from create Ownerships from a Book Volume--
-[bookId:54102dc703645f7742eec103, id:54102dc703645f7742eec104, message:Created ownership, status:true]
+      <system-out><![CDATA[--Output from create Ownerships from a Book Volume User One--
+--Output from create Ownerships from a Book Volume User Two--
+--Output from create many Ownerships from Book Volumes User One--
+--Output from create many Ownerships from Book Volumes User Two--
 --Output from add Ownerships to this user--
 --Output from get the added Ownership belonging to this user--
---Output from list Ownerships belonging to this user--
+--Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
 --Output from search for a Book that wont match a query --
@@ -50,27 +41,18 @@ Successfully saved user
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--
 ]]></system-out>
 
-      <system-err><![CDATA[--Output from create Ownerships from a Book Volume--
+      <system-err><![CDATA[--Output from create Ownerships from a Book Volume User One--
+--Output from create Ownerships from a Book Volume User Two--
+--Output from create many Ownerships from Book Volumes User One--
+--Output from create many Ownerships from Book Volumes User Two--
 --Output from add Ownerships to this user--
 --Output from get the added Ownership belonging to this user--
---Output from list Ownerships belonging to this user--
+--Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
 --Output from search for a Book that wont match a query --
 --Output from delete Ownerships belonging to this user--
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--
-]]></system-err>
-
-  </testsuite>
-  <testsuite errors="0" failures="0" hostname="Sathishs-MacBook-Pro.local" id="2" name="UserControllerSpec" package="com.squareprism.localreads" tests="1" time="0.238" timestamp="2014-09-10T10:54:01">
-      <properties />
-
-      <testcase classname="com.squareprism.localreads.UserControllerSpec" name="test users with login " time="0.116" />
-
-      <system-out><![CDATA[--Output from test users with login --
-]]></system-out>
-
-      <system-err><![CDATA[--Output from test users with login --
 ]]></system-err>
 
   </testsuite>

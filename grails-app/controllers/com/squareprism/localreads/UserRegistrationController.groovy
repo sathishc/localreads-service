@@ -7,19 +7,41 @@ class UserRegistrationController {
 
     def addUser(){
 
-        String userName =  request.getJSON().getAt('username')
-        String password =  request.getJSON().getAt('password')
-        double latitude =  Double.parseDouble((String)request.getJSON().getAt('latitude'))
-        double longitude =  Double.parseDouble((String)request.getJSON().getAt('longitude'))
-
+        String userName =  params.username
+        String password =  params.password
 
         def response = null
-
-        if(userName == null){
-            response = [status:false,message:'Invalid or null user name']
+        if(userName == null || password == null){
+            response = [status:false,message:'Invalid user name or password']
             render response as JSON
             return
         }
+
+        boolean validValue = true
+
+
+        double latitude =   params.double('latitude')
+        double longitude =  params.double('longitude')
+
+        if(latitude == null || longitude == null){
+            response = [status:false,message:'Invalid location specified']
+            render response as JSON
+            return
+        }
+
+
+        if(!validValue){
+            response = [status:false,message:'Invalid location specified']
+            render response as JSON
+            return
+        }
+
+
+
+
+        // convert stings to doubles
+        //latitude = Double.parseDouble(latitude)
+        //longitude = Double.parseDouble(longitude)
 
         //check if user already present
         def newUser = User.findByUsername(userName)
@@ -55,7 +77,8 @@ class UserRegistrationController {
             return
         }
 
-        respond status:true,message:'Successfully saved user',user:newUser,id:newUser.id
+        response = [status:true,message:'User registered. Please login',user:newUser,id:newUser.id]
+        render response as JSON
     }
 
 }

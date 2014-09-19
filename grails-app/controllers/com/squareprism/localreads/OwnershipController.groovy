@@ -31,6 +31,11 @@ class OwnershipController extends RestfulController {
             def bookDetails = bookService.getBookFromVolumeId(volumeId)
             log.info bookDetails
 
+            if(bookDetails.error){
+                respond message:'Could not find book in system', status:false
+                return
+            }
+
             String title = bookDetails.volumeInfo.title
             String description = bookDetails.volumeInfo.description
             String thumbnail = bookDetails.volumeInfo.imageLinks.thumbnail
@@ -71,7 +76,16 @@ class OwnershipController extends RestfulController {
             return
         }
 
-        respond(message:'Created ownership', status:true, id:ownership.id,bookId:book.id)
+        def enrichedOwnership = [
+                id:ownership.id,
+                ownerId:ownership.user.id,
+                book:Book.get(ownership.book.id)
+        ]
+
+        respond(message:'Saved ownership',
+                status:true,
+                ownership:enrichedOwnership
+        )
     }
 
     // save an ownership from a book id (an existing book in localreads) provided by the user
@@ -79,7 +93,7 @@ class OwnershipController extends RestfulController {
     def save(){
 
         // get the Book that needs to be attached to the ownership
-        String bookId = request.getJSON().getAt("bookId")
+        String bookId = params.bookId
         log.info("Adding Ownership of existing book with id ... " + bookId)
 
         def book = Book.get(bookId)
@@ -105,12 +119,25 @@ class OwnershipController extends RestfulController {
             return
         }
 
+        log.info("Found or created ownership")
+
         if(!ownership.save(flush: true)){
             respond message:'Could not save ownership', status:false
             return
         }
 
-        respond message:'Saved ownership', status:true, id:ownership.id
+        log.info("Saved ownership")
+
+        def enrichedOwnership = [
+                id:ownership.id,
+                ownerId:ownership.user.id,
+                book:Book.get(ownership.book.id)
+        ]
+
+        respond(message:'Saved ownership',
+                status:true,
+                ownership:enrichedOwnership
+        )
     }
 
     // method to search for books similar to query within a search radius
@@ -129,33 +156,63 @@ class OwnershipController extends RestfulController {
         double latitude = thisUser.location.y
         double longitude = thisUser.location.x
 
-        //perform a search where the ownership-book text has the search-query and
-        // the user is within radius km of the current user
-        def books = Book.search(searchQuery)
-        if(books == null || books?.size()==0){
-            respond message:'Did not find books with matching criteria', status:false
+        def users = User.findAllByLocationGeoWithin(Circle.valueOf([[longitude,latitude],radius]))
+        if(users == null || users?.size()==0){
+            log.info "No users found nearby"
+            respond message:'No users found nearby', status:false
             return
         }
 
-        def users = User.findAllByLocationGeoWithin(Circle.valueOf([[longitude,latitude],radius]))
-        if(users == null || users?.size()==0){
-            respond message:'Did not find users nearby with matching criteria', status:false
+        //perform a search where the ownership-book text has the search-query and
+        // the user is within radius km of the current user
+        // TODO Optimize this into criteria queries
+
+        log.info "Searching for " + searchQuery
+
+        def books
+        if(searchQuery == "none"){
+            books = Book.list(max:40);
+        }else{
+            books = Book.search(searchQuery)
+        }
+
+        if(books == null || books?.size()==0){
+            respond message:'Did not match any books', status:false
             return
         }
 
         log.info books
         log.info users
 
+        // if you found users and matching books, get the intersection.
         def ownerships = Ownership.where{
-            book in books ||
-            user in users
+            book in books && user in users && user != thisUser
         }.list()
 
-        respond ownerships:ownerships,status: true
+        if(ownerships == null || ownerships?.size()==0){
+            respond message:'Did not find Books nearby with matching criteria', status:false
+            return
+        }
+
+        def enrichedOwnerships = ownerships.collect{
+            [
+                    id:it.id,
+                    ownerId:it.user.id,
+                    book:Book.get(it.book.id)
+            ]
+        }
+
+        respond ownerships:enrichedOwnerships,status: true
     }
 
     // returns the ownership for the id specified. the ownership has to belong to the user
     def show(Ownership ownership){
+
+        if(!ownership){
+            respond message:'Could not find ownership', status:false
+            return
+        }
+
         def userName = springSecurityService.principal.username
         def thisUser = User.findByUsername(userName)
         if(!thisUser){
@@ -173,7 +230,7 @@ class OwnershipController extends RestfulController {
         respond ownership:ownership, status: true
     }
 
-    // returns the full list of ownerships belonging to this user
+    // returns the full list of books belonging to this user
     def index(Integer max){
 
         params.max = Math.min(max ?: 10, 100)
@@ -186,15 +243,35 @@ class OwnershipController extends RestfulController {
         }
 
         def ownerships = Ownership.findAllByUser(thisUser)
-        respond ownerships:ownerships, status:true
+
+        if(!ownerships){
+            respond message:'No ownerships found', status:false
+            return
+        }
+
+        def enrichedOwnerships = ownerships.collect{
+            [
+                id:it.id,
+                ownerId:it.user.id,
+                book:Book.get(it.book.id)
+            ]
+        }
+
+        respond ownerships:enrichedOwnerships, status:true
     }
 
     //delete ownership for this user
+    @Transactional
     def delete(Ownership ownership){
         def userName = springSecurityService.principal.username
         def thisUser = User.findByUsername(userName)
         if(!thisUser){
             respond message:'Could not find the user', status:false
+            return
+        }
+
+        if(!ownership){
+            respond message:'Could not find the ownership', status:false
             return
         }
 
@@ -204,8 +281,9 @@ class OwnershipController extends RestfulController {
             return
         }
 
+        def ownershipId = ownership.id;
         ownership.delete(flush: true)
-        respond message:'Deleted ownership', status:true
+        respond message:'Deleted ownership', status:true, id:ownershipId
     }
 
 }

@@ -74,7 +74,8 @@ grails.project.dependency.resolution = {
         compile ":spring-security-rest:1.4.0", {
             excludes: 'spring-security-core'
         }
-        //compile ":cors:1.1.6"
+        runtime ":cors:1.1.6"
+
 
 
         //database plugin - mongodb

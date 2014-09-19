@@ -21,7 +21,6 @@ class Book {
         identifier(nullable: false,unique: true)
         genre(nullable: true)
         review(nullable: true)
-        rating(nullable: true)
 
         author(nullable: true)
         webPageLink(nullable: true)
@@ -29,6 +28,7 @@ class Book {
     }
 
     static mapping = {
-        index description:"text"
+        index name:"text", description:"text"
+
     }
 }

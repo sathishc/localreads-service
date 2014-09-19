@@ -11,4 +11,8 @@ class Ownership {
         book blank:false, unique: 'user' //don't allow the same book for this user
         user blank:false
     }
+
+    static mapping = {
+        book lazy: false
+    }
 }

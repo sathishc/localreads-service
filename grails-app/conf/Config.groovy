@@ -150,10 +150,12 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/user/**':                       ['ROLE_USER'],
     '/book/**':                       ['ROLE_USER'],
     '/ownership/**':                  ['ROLE_USER'],
+    '/conversation/**':               ['ROLE_USER'],
     '/library/**':                    ['ROLE_USER']
 ]
 
 grails.plugin.springsecurity.rest.token.validation.useBearerToken = false
+grails.plugin.springsecurity.rest.token.validation.headerName = "Authorization"
 grails.plugin.springsecurity.rest.login.useJsonCredentials = true
 grails.plugin.springsecurity.rest.token.storage.useGrailsCache =	true
 grails.plugin.springsecurity.rest.token.storage.grailsCacheName = 'tokenCache'
@@ -163,6 +165,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter',  // Stateless chain for api end points
         '/**': 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'   // Traditional chain
 ]
+
 
 
 

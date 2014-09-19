@@ -2,6 +2,7 @@ package com.squareprism.localreads
 
 import groovyx.net.http.RESTClient
 import spock.lang.Specification
+import static groovyx.net.http.ContentType.URLENC
 
 /**
  * Created by SatSang on 9/4/14.
@@ -22,6 +23,7 @@ class BookControllerSpec extends Specification {
         ]
         def response = restClient.post(
                 path:"register/add",
+                requestContentType:URLENC,
                 contentType:"application/json",
                 body:postBody
         )
@@ -33,7 +35,7 @@ class BookControllerSpec extends Specification {
         def response = restClient.delete(
                 path:deleteUrl,
                 contentType:"application/json",
-                headers:['X-Auth-Token':performRestLogin()]
+                headers:['Authorization':performRestLogin()]
         )
 
     }
@@ -51,7 +53,8 @@ class BookControllerSpec extends Specification {
         return loginResponse.data.access_token
     }
 
-    def "Add a book" () {
+    // Not required since a book is never added directly
+    /*def "Add a book" () {
         given:
            def postBody = [
                    name: "The Da Vinci Code",
@@ -65,29 +68,27 @@ class BookControllerSpec extends Specification {
                     path:"api/books",
                     body:postBody,
                     contentType:"application/json",
-                    headers:['X-Auth-Token':performRestLogin()]
+                    headers:['Authorization':performRestLogin()]
             )
         then:
             assert response.status == 200
             assert response.data.id != null
             assert response.data.identifier.equals("1234567B")
-    }
+    }*/
 
 
 
     def "Retrieve all books" () {
         given:
             def listBooksUrl = "/api/books"
-
         when:
             def response = restClient.get(
                     path:listBooksUrl,
                     contentType:"application/json",
-                    headers:['X-Auth-Token':performRestLogin()]
+                    headers:['Authorization':performRestLogin()]
             )
         then:
             assert response.status == 200
-            assert response.data.size() == 1
     }
 
 }
