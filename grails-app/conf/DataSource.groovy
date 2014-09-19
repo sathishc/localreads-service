@@ -22,6 +22,17 @@ environments{
             }
         }
     }
+    prod{
+        grails {
+            mongo {
+                host = "localhost"
+                port = 27017
+                username = "localreads_admin"
+                password = "password"
+                databaseName = "localreads_test"
+            }
+        }
+    }
 }
 
 
