@@ -7,6 +7,7 @@
 --Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
---Output from search for a Book that wont match a query --
+--Output from search for a Book that is not there with users nearby--
+--Output from search for a Book from a user far away--
 --Output from delete Ownerships belonging to this user--
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--

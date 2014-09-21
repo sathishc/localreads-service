@@ -1,5 +1,5 @@
 Testsuite: com.squareprism.localreads.OwnershipControllerSpec
-Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 1.823 sec
+Tests run: 13, Failures: 0, Errors: 0, Time elapsed: 2.278 sec
 ------------- Standard Output ---------------
 --Output from create Ownerships from a Book Volume User One--
 --Output from create Ownerships from a Book Volume User Two--
@@ -10,7 +10,8 @@ Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 1.823 sec
 --Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
---Output from search for a Book that wont match a query --
+--Output from search for a Book that is not there with users nearby--
+--Output from search for a Book from a user far away--
 --Output from delete Ownerships belonging to this user--
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--
 ------------- ---------------- ---------------
@@ -24,20 +25,22 @@ Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 1.823 sec
 --Output from list Ownerships belonging to user one--
 --Output from search for Books with a query --
 --Output from search for Books with another query --
---Output from search for a Book that wont match a query --
+--Output from search for a Book that is not there with users nearby--
+--Output from search for a Book from a user far away--
 --Output from delete Ownerships belonging to this user--
 --Output from list Ownerships belonging to this user after deletion of 1 ownership--
 ------------- ---------------- ---------------
 
-Testcase: create Ownerships from a Book Volume User One took 0.129 sec
-Testcase: create Ownerships from a Book Volume User Two took 0.107 sec
-Testcase: create many Ownerships from Book Volumes User One took 0.222 sec
-Testcase: create many Ownerships from Book Volumes User Two took 0.232 sec
-Testcase: add Ownerships to this user took 0.109 sec
+Testcase: create Ownerships from a Book Volume User One took 0.17 sec
+Testcase: create Ownerships from a Book Volume User Two took 0.34 sec
+Testcase: create many Ownerships from Book Volumes User One took 0.224 sec
+Testcase: create many Ownerships from Book Volumes User Two took 0.22 sec
+Testcase: add Ownerships to this user took 0.121 sec
 Testcase: get the added Ownership belonging to this user took 0.111 sec
-Testcase: list Ownerships belonging to user one took 0.112 sec
-Testcase: search for Books with a query  took 0.117 sec
-Testcase: search for Books with another query  took 0.112 sec
-Testcase: search for a Book that wont match a query  took 0.107 sec
-Testcase: delete Ownerships belonging to this user took 0.133 sec
-Testcase: list Ownerships belonging to this user after deletion of 1 ownership took 0.115 sec
+Testcase: list Ownerships belonging to user one took 0.124 sec
+Testcase: search for Books with a query  took 0.134 sec
+Testcase: search for Books with another query  took 0.11 sec
+Testcase: search for a Book that is not there with users nearby took 0.106 sec
+Testcase: search for a Book from a user far away took 0.115 sec
+Testcase: delete Ownerships belonging to this user took 0.127 sec
+Testcase: list Ownerships belonging to this user after deletion of 1 ownership took 0.131 sec
