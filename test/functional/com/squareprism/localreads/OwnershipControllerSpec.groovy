@@ -12,6 +12,7 @@ class OwnershipControllerSpec extends Specification {
     static RESTClient restClient
     static String thisUserId
     static String thisSecondUserId // useful to test search items from other users
+    static String thisThirdUserId // useful to test search items from other users
     static String thisOwnershipId
     static String thisBookId
 
@@ -21,8 +22,8 @@ class OwnershipControllerSpec extends Specification {
         def postBody = [
                 username:"me@foo.com",
                 password:"password",
-                latitude:"13.0",
-                longitude:"75.5"
+                latitude:"12.9715987",
+                longitude:"77.59456269999998"
         ]
         def response = restClient.post(
                 path:"register/add",
@@ -36,8 +37,8 @@ class OwnershipControllerSpec extends Specification {
         postBody = [
                 username:"me2@foo.com",
                 password:"password2",
-                latitude:"13.0",
-                longitude:"75.5"
+                latitude:"12.9715987",
+                longitude:"77.59456269999998"
         ]
 
         response = restClient.post(
@@ -47,6 +48,22 @@ class OwnershipControllerSpec extends Specification {
                 body:postBody
         )
         thisSecondUserId = response.data.id
+
+        //create a third user away from other users
+        postBody = [
+                username:"me3@foo.com",
+                password:"password3",
+                latitude:"41.0534302",
+                longitude:"-73.5387341"
+        ]
+
+        response = restClient.post(
+                path:"register/add",
+                requestContentType:URLENC,
+                contentType:"application/json",
+                body:postBody
+        )
+        thisThirdUserId = response.data.id
 
 
     }
@@ -85,6 +102,19 @@ class OwnershipControllerSpec extends Specification {
         def postBody = [
                 username:"me2@foo.com",
                 password:"password2",
+        ]
+        def loginResponse = restClient.post(
+                path:"api/login",
+                contentType:"application/json",
+                body:postBody
+        )
+        return loginResponse.data.access_token
+    }
+
+    def performRestLoginThird(){
+        def postBody = [
+                username:"me3@foo.com",
+                password:"password3",
         ]
         def loginResponse = restClient.post(
                 path:"api/login",
@@ -236,7 +266,7 @@ class OwnershipControllerSpec extends Specification {
         then:
         assert response.status == 200
         assert response.data.status == true
-        assert response.data.books.size() != 0
+        assert response.data.ownerships.size() != 0
 
     }
 
@@ -254,11 +284,11 @@ class OwnershipControllerSpec extends Specification {
         then:
         assert response.status == 200
         assert response.data.status == true
-        assert response.data.books.size() != 0
+        assert response.data.ownerships.size() != 0
 
     }
 
-    def "search for a Book that wont match a query " () {
+    def "search for a Book that is not there with users nearby" () {
         given:
 
         def searchUrl = "http://localhost:8080/api/ownerships/search/" + "Steve Jobs"
@@ -272,6 +302,24 @@ class OwnershipControllerSpec extends Specification {
         then:
         assert response.status == 200
         assert response.data.status == false
+
+    }
+
+    def "search for a Book from a user far away" () {
+        given:
+
+        def searchUrl = "http://localhost:8080/api/ownerships/search/" + "Google Story"
+        when:
+        def response = restClient.get(
+                path:searchUrl,
+                contentType:"application/json",
+                headers:['Authorization':performRestLoginThird()]
+        )
+
+        then:
+        assert response.status == 200
+        assert response.data.status == false
+        assert response.data.message == "None of your neighbours are using localreads"
 
     }
 

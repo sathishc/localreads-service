@@ -156,6 +156,9 @@ class OwnershipController extends RestfulController {
         double latitude = thisUser.location.y
         double longitude = thisUser.location.x
 
+
+        // TODO Optimize the below statements if possible
+
         def users = User.findAllByLocationGeoWithin(Circle.valueOf([[longitude,latitude],radius]))
         if(users == null || users?.size()==0){
             log.info "No users found nearby"
@@ -163,9 +166,15 @@ class OwnershipController extends RestfulController {
             return
         }
 
+        // only one user returned which is yourself
+        if(users?.size()==1){
+            respond message:'None of your neighbours are using localreads', status:false
+            return
+        }
+
         //perform a search where the ownership-book text has the search-query and
         // the user is within radius km of the current user
-        // TODO Optimize this into criteria queries
+
 
         log.info "Searching for " + searchQuery
 
