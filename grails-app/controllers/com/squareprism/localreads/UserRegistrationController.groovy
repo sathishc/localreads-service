@@ -9,6 +9,8 @@ class UserRegistrationController {
 
         String userName =  params.username
         String password =  params.password
+        String displayName =  params.displayName
+        String imageUrl =  params.imageUrl
 
         def response = null
         if(userName == null || password == null){
@@ -51,7 +53,7 @@ class UserRegistrationController {
             return
         }
 
-        Settings settings = new Settings()
+        Settings settings = new Settings(profileName: displayName,userThumbnail: imageUrl)
         // geoJson points are in long/lat order
         Point location = new Point(longitude,latitude)
         newUser = new User(username: userName,password: password,settings: settings,location: location)
