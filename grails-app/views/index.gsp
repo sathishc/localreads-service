@@ -88,6 +88,8 @@
                 is exposed as REST JSON APIs. Just look at the source code at
                 <a href="https://github.com/sathishc/localreads-service">https://github.com/sathishc/localreads-service</a>
             </p>
+            <p> To see mobile apps using this in action, head over to <a href="http://www.localreads.net">LocalReads</a>. Check out
+            the client source code at<a href="https://github.com/sathishc/localreads">https://github.com/sathishc/localreads</a> </p>
 		</div>
 	</body>
 </html>
