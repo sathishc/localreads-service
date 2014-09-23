@@ -22,7 +22,7 @@ environments{
             }
         }
     }
-    prod{
+    production{
         grails {
             mongo {
                 host = "localhost"
