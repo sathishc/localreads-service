@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Welcome to LocalReads Servoce</title>
+		<title>Welcome to the LocalReads Web Service</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
@@ -83,7 +83,7 @@
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="page-body" role="main">
-			<h1>Welcome to LocalReads Servoce</h1>
+			<h1>Welcome to the LocalReads Web Service</h1>
 			<p>You reached the page of the LocalReads web service. There is nothing to see here. Everything localreads provides
                 is exposed as REST JSON APIs. Just look at the source code at
                 <a href="https://github.com/sathishc/localreads-service">https://github.com/sathishc/localreads-service</a>
