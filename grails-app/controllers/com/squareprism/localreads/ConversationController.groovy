@@ -102,9 +102,9 @@ class ConversationController extends RestfulController {
 
         def receiverName
         if(conversation.user1 == thisUser){
-            receiverName = it.user2.settings.profileName
+            receiverName = conversation.user2.settings.profileName
         }else{
-            receiverName = it.user1.settings.profileName
+            receiverName = conversation.user1.settings.profileName
         }
 
         def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
@@ -143,9 +143,9 @@ class ConversationController extends RestfulController {
 
         def receiverName
         if(conversation.user1 == thisUser){
-            receiverName = it.user2.settings.profileName
+            receiverName = conversation.user2.settings.profileName
         }else{
-            receiverName = it.user1.settings.profileName
+            receiverName = conversation.user1.settings.profileName
         }
 
         def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
@@ -170,9 +170,9 @@ class ConversationController extends RestfulController {
 
         def receiverName
         if(conversation.user1 == thisUser){
-            receiverName = it.user2.settings.profileName
+            receiverName = conversation.user2.settings.profileName
         }else{
-            receiverName = it.user1.settings.profileName
+            receiverName = conversation.user1.settings.profileName
         }
 
         def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
