@@ -11,7 +11,7 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = LocalReads // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
@@ -92,12 +92,12 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
-        grails.serverURL = "130.211.252.177"
+        grails.serverURL = "https://www.microlibrary.co"
     }
 }
 
 // log4j configuration
-/*log4j.main = {
+log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
     //appenders {
@@ -106,7 +106,7 @@ environments {
 
 
 
-    *//*error  'org.codehaus.groovy.grails.web.servlet',        // controllers
+    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
@@ -116,17 +116,17 @@ environments {
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'*//*
+           'net.sf.ehcache.hibernate'
 
-}*/
+}
 
-
+/*
 log4j = {
     root {
-        info 'stdout'
+        debug 'stdout'
     }
-    info  'grails.app.com.squareprism'
-}
+    debug  'grails.app.com.squareprism'
+}*/
 
 
 //spring security plugin configuration
