@@ -207,6 +207,7 @@ class OwnershipController extends RestfulController {
             [
                     id:it.id,
                     ownerId:it.user.id,
+                    ownerName:it.user.settings.profileName,
                     book:Book.get(it.book.id)
             ]
         }

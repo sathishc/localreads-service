@@ -32,9 +32,9 @@ class ConversationController extends RestfulController {
         def enrichedConversations = conversations.collect{
             def receiverName
             if(it.user1 == thisUser){
-                receiverName = it.user2.username
+                receiverName = it.user2.settings.profileName
             }else{
-                receiverName = it.user1.username
+                receiverName = it.user1.settings.profileName
             }
 
             [id:it.id,snippets:it.snippets,receiverName:receiverName]
