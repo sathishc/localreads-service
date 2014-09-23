@@ -100,7 +100,16 @@ class ConversationController extends RestfulController {
             return
         }
 
-        respond status:true, message:messageText, conversation:conversation
+        def receiverName
+        if(conversation.user1 == thisUser){
+            receiverName = it.user2.settings.profileName
+        }else{
+            receiverName = it.user1.settings.profileName
+        }
+
+        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
+
+        respond status:true, message:messageText, conversation:enrichedConversation
     }
 
     @Transactional
@@ -132,7 +141,16 @@ class ConversationController extends RestfulController {
             return
         }
 
-        respond status:true, message:messageText, conversation:conversation
+        def receiverName
+        if(conversation.user1 == thisUser){
+            receiverName = it.user2.settings.profileName
+        }else{
+            receiverName = it.user1.settings.profileName
+        }
+
+        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
+
+        respond status:true, message:messageText, conversation:enrichedConversation
     }
 
     // returns the ownership for the id specified. the ownership has to belong to the user
@@ -150,8 +168,17 @@ class ConversationController extends RestfulController {
             return
         }
 
+        def receiverName
+        if(conversation.user1 == thisUser){
+            receiverName = it.user2.settings.profileName
+        }else{
+            receiverName = it.user1.settings.profileName
+        }
 
-        respond conversation:conversation, status: true
+        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
+
+
+        respond conversation:enrichedConversation, status: true
     }
 
     //delete ownership for this user
