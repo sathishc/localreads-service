@@ -14,4 +14,4 @@ See the config.groovy and Data-source.groovy files for more information
 
 Building a grails project is extremely easy. All you need to have is JDK version 6 or above in the machine and set JAVA_HOME
 to the correct location. Clone this repository from Github and run "./grailsw compile". This will download all necessary
-libraries and plugins and compile the project. For more information check grails.org/doc/latest/   
+libraries and plugins and compile the project. For more information check http://grails.org/doc/latest/   
