@@ -29,6 +29,12 @@ class OwnershipController extends RestfulController {
         def book = Book.findByIdentifier(volumeId)
         if(!book){
             def bookDetails = bookService.getBookFromVolumeId(volumeId)
+
+            if(bookDetails == null){
+                respond message:'Could not find book in system', status:false
+                return
+            }
+
             log.info bookDetails
 
             if(bookDetails.error){
@@ -36,10 +42,16 @@ class OwnershipController extends RestfulController {
                 return
             }
 
-            String title = bookDetails.volumeInfo.title
-            String description = bookDetails.volumeInfo.description
-            String thumbnail = bookDetails.volumeInfo.imageLinks.thumbnail
-            String author = bookDetails.volumeInfo.authors[0]
+
+
+            String title = bookDetails?.volumeInfo?.title
+            String description = bookDetails?.volumeInfo?.description
+            String thumbnail = bookDetails?.volumeInfo?.imageLinks?.thumbnail
+            String author = ""
+            if(bookDetails?.volumeInfo?.authors){ //authors could be null
+                author = bookDetails?.volumeInfo?.authors[0]
+            }
+
             book = Book.findOrSaveWhere(
                     identifier: volumeId,
                     name: title,
