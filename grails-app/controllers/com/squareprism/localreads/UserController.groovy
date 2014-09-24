@@ -40,7 +40,8 @@ class UserController extends RestfulController {
 
         def enrichedUser = [
                 id:postedUser.id,
-                userName:postedUser.username,
+                displayName:postedUser.settings.profileName,
+                username:postedUser.username,
                 latitude:postedUser.location.y,
                 longitude:postedUser.location.x,
                 searchRadius:postedUser.settings.searchRadius
