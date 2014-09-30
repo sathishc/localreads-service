@@ -10,6 +10,7 @@ class ConversationController extends RestfulController {
 
 
     def springSecurityService
+    def brokerMessagingTemplate
 
     ConversationController() {
         super(Conversation)
@@ -100,15 +101,32 @@ class ConversationController extends RestfulController {
             return
         }
 
-        def receiverName
+        def senderName,receiverName,receiverId
         if(conversation.user1 == thisUser){
+            receiverId = conversation.user2.username
+            senderName = conversation.user1.settings.profileName
             receiverName = conversation.user2.settings.profileName
         }else{
+            receiverId = conversation.user1.username
+            senderName = conversation.user2.settings.profileName
             receiverName = conversation.user1.settings.profileName
         }
 
-        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
+        // get the users current token
+        def token = AuthenticationToken.findByUsername(receiverId).tokenValue
+        def conversationSnippet = [
+                id:conversation.id,
+                snippet:[
+                        senderUserId: snippet.senderUserId,
+                        creationTime: snippet.creationTime,
+                        message: snippet.message
+                ],
+                receiverName: senderName
+        ]
+        brokerMessagingTemplate.convertAndSend("/queue/conversations/" + token,conversationSnippet)
 
+        // respond to the original post
+        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
         respond status:true, message:messageText, conversation:enrichedConversation
     }
 
@@ -141,15 +159,29 @@ class ConversationController extends RestfulController {
             return
         }
 
-        def receiverName
+        def receiverName,receiverId
         if(conversation.user1 == thisUser){
+            receiverId = conversation.user2.username
             receiverName = conversation.user2.settings.profileName
         }else{
+            receiverId = conversation.user1.username
             receiverName = conversation.user1.settings.profileName
         }
 
-        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
+        // get the users current token
+        def token = AuthenticationToken.findByUsername(receiverId).tokenValue
+        def conversationSnippet = [
+                id:conversation.id,
+                snippet:[
+                        senderUserId: snippet.senderUserId,
+                        creationTime: snippet.creationTime,
+                        message: snippet.message
+                ],
+                receiverName: receiverName
+        ]
+        brokerMessagingTemplate.convertAndSend("/queue/conversations/" + token,conversationSnippet)
 
+        def enrichedConversation = [id:conversation.id,snippets:conversation.snippets,receiverName:receiverName]
         respond status:true, message:messageText, conversation:enrichedConversation
     }
 
@@ -181,7 +213,7 @@ class ConversationController extends RestfulController {
         respond conversation:enrichedConversation, status: true
     }
 
-    //delete ownership for this user
+    //delete conversation for this user
     @Transactional
     def delete(Conversation conversation){
         def userName = springSecurityService.principal.username

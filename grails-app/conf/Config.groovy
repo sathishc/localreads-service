@@ -147,6 +147,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'css*':                           ['permitAll'],
 	'images*':                        ['permitAll'],
 	'favicon.ico':                    ['permitAll'],
+    '/stomp/**':                      ['ROLE_ANONYMOUS'],
+    '/stomp/info':                    ['ROLE_ANONYMOUS'],
     '/userRegistration/**':           ['permitAll'],
     '/user/**':                       ['ROLE_USER'],
     '/book/**':                       ['ROLE_USER'],
@@ -155,18 +157,21 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/library/**':                    ['ROLE_USER']
 ]
 
+grails.plugin.springsecurity.rest.token.storage.useGorm = true
+grails.plugin.springsecurity.rest.token.storage.gorm.tokenDomainClassName = 'com.squareprism.localreads.AuthenticationToken'
 grails.plugin.springsecurity.rest.token.validation.useBearerToken = false
 grails.plugin.springsecurity.rest.token.validation.headerName = "Authorization"
+grails.plugin.springsecurity.rest.token.validation.enableAnonymousAccess = true
 grails.plugin.springsecurity.rest.login.useJsonCredentials = true
-grails.plugin.springsecurity.rest.token.storage.useGrailsCache =	true
-grails.plugin.springsecurity.rest.token.storage.grailsCacheName = 'tokenCache'
 
 //filter chain for rest to work with spring-security core
 grails.plugin.springsecurity.filterChain.chainMap = [
+        '/stomp/**': 'anonymousAuthenticationFilter,restTokenValidationFilter,restExceptionTranslationFilter,filterInvocationInterceptor',
         '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter',  // Stateless chain for api end points
         '/**': 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'   // Traditional chain
 ]
 
 
-
-
+// for web sockets
+grails.tomcat.nio = true
+grails.tomcat.scan.enabled = true

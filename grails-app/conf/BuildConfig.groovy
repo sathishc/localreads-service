@@ -78,6 +78,8 @@ grails.project.dependency.resolution = {
 
 
 
+        compile ":spring-websocket:1.1.0"
+
         //database plugin - mongodb
         compile ":mongodb:3.0.2"
 
